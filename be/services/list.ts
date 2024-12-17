@@ -5,23 +5,21 @@ import QueryString from "qs";
 export default async (req: Request, res: Response) => {
   try {
     const nowquery: QueryString.ParsedQs = req.query;
-    let search: Object = {};
+    const search: { title?: string; user?: string } = {};
     let nowpage: number = 1;
-
-    console.log(req.params.list);
 
     if (+req.params.list > 1) {
       nowpage = +req.params.list;
     }
 
     if (nowquery.title) {
-      search = { title: nowquery.title };
+      search.title = String(nowquery.title);
     } else if (nowquery.user) {
-      search = { user: nowquery.user };
+      search.user = String(nowquery.user);
     }
 
     const list: { rows: Board[]; count: number } = await Board.findAndCountAll({
-      where: { ...search },
+      where: search,
       attributes: { exclude: ["updatedAt", "deletedAt", "pw"] },
       offset: (nowpage - 1) * 10,
       limit: 10,

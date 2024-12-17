@@ -4,16 +4,22 @@ import { Board } from "../model";
 export default async (req: Request, res: Response) => {
   try {
     const reqbody = req.body;
+    const nowboard: Board | null = await Board.findOne({
+      where: { id: +req.params.board },
+    });
 
-    const nowboard: Board = await Board.create({
+    if (!nowboard) {
+      throw Error("not found");
+    }
+
+    await nowboard.update({
       title: reqbody.title,
       content: reqbody.content,
       user: reqbody.user,
       pw: reqbody.pw,
-      view: 0,
     });
     res.redirect(`/view/${nowboard.id}`);
   } catch (err) {
-    res.status(400).json({ fail: "fail" });
+    res.status(400).json({ check: "fail" });
   }
 };
