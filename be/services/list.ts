@@ -31,7 +31,7 @@ export default async (req: Request, res: Response) => {
       limit: 8,
       order: [["id", "desc"]],
     });
-
+    list.count = Math.ceil(list.count / 8);
     res.json({ list: list });
   } catch (err) {
     res.status(400).json({ fail: "fail" });
