@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "warming",
+    "password": "1q2w3e4r",
+    "database": "warmingup",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "+09:00"
+  }
+}
