@@ -3,12 +3,9 @@ import { Board } from "../model";
 
 export default async (req: Request, res: Response) => {
   try {
-    const reqbody: {
-      title: string;
-      content: string;
-      user: string;
-      pw: string;
-    } = req.body;
+    const reqbody = req.body;
+
+    console.log(req.body);
 
     const nowboard: Board = await Board.create({
       title: reqbody.title,
@@ -17,8 +14,9 @@ export default async (req: Request, res: Response) => {
       pw: reqbody.pw,
       view: 0,
     });
-    res.redirect(`/${nowboard.id}`);
+    res.redirect(`/view/${nowboard.id}`);
   } catch (err) {
+    // console.log(err);
     res.status(400).json({ fail: "fail" });
   }
 };

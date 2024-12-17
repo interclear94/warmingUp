@@ -8,7 +8,7 @@ class Board extends Model {
   public pw!: string;
   public view!: number;
   public readonly createdAt!: Date;
-  public readonly updateAt!: Date;
+  public readonly updatedAt!: Date;
   public readonly deletedAt!: Date;
 
   public static initialize(sequelize: Sequelize) {
