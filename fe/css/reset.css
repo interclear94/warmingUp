@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background: linear-gradient(45deg, #6142c9, #fbb9bb);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
