@@ -17,18 +17,22 @@ class Board extends Model {
         title: {
           type: DataTypes.STRING(50),
           allowNull: false,
+          validate: { len: [1, 50] },
         },
         content: {
           type: DataTypes.TEXT,
           allowNull: false,
+          validate: { len: [1, Infinity] },
         },
         user: {
           type: DataTypes.STRING(12),
           allowNull: false,
+          validate: { len: [1, 12] },
         },
         pw: {
           type: DataTypes.STRING(128),
           allowNull: false,
+          validate: { len: [1, 128] },
         },
         view: {
           type: DataTypes.INTEGER,
