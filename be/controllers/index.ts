@@ -1,19 +1,100 @@
-import { Router } from "express";
-import wirte from "../services/wirte";
-import list from "../services/list";
-import view from "../services/view";
-import check from "../services/check";
-import update from "../services/update";
-import boarddelete from "../services/delete";
+import { NextFunction, Router, Request, Response } from "express";
+
+import {
+  list,
+  view,
+  write,
+  update,
+  boarddelete,
+  check,
+} from "../services/boards";
 
 const router: Router = Router();
 
-router.get("/", list);
-router.get("/search/:list", list);
-router.post("/write", wirte);
-router.get("/view/:board", view);
-router.put("/check/:board", check);
-router.patch("/write/:board", update);
-router.delete("/delete/:board", boarddelete);
+router.get(
+  "/boards",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const getlist = await list(req.query);
+      res.json({ list: getlist });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.get(
+  "/boards/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const nowparams: number = parseInt(req.params.id);
+      if (isNaN(nowparams)) {
+        throw new Error("NaN");
+      }
+      const nowview = await view(nowparams);
+      res.json({ view: nowview });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.post(
+  "/boards",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { body } = req;
+
+      const nowid = await write(body);
+      res.json({ id: nowid });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.patch(
+  "/boards/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { body, params } = req;
+      const nowparams: number = parseInt(params.id);
+      const nowid = await update(body, nowparams);
+      res.json({ id: nowid });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.delete(
+  "/boards/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const nowparams: number = parseInt(req.params.id);
+      if (isNaN(nowparams)) {
+        throw new Error("NaN");
+      }
+      const deletecheck = await boarddelete(nowparams);
+      res.json(deletecheck);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.post(
+  "/boards/:id/pwcheck",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { body, params } = req;
+      const nowparams: number = parseInt(params.id);
+      const pwcheck = await check(body, nowparams);
+      res.json(pwcheck);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 export default router;
