@@ -3,6 +3,7 @@ import morgan from "morgan";
 import router from "./controllers";
 import cors from "cors";
 import { sequelize } from "./model";
+import errorHandler from "./middleware/error";
 
 const app: Express = express();
 
@@ -13,11 +14,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5500",
     credentials: true,
   })
 );
 app.use("/api", router);
+app.use(errorHandler);
 
 app.listen(3000, () => {
   console.log("hello");
