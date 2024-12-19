@@ -1,72 +1,103 @@
-const listUl = document.querySelector(".list_ul");
-const totalList = 76;
-const viewList = 8;
-const totalPage = Math.ceil(totalList / viewList);
-const viewPage = 5;
-const totalListArea = Math.ceil(totalPage / viewPage);
+async function getData() {
+  const { data } = await axios.get("http://localhost:3000/api/boards?=1");
+  const {
+    list: { count, rows },
+  } = data;
 
-for (let i = 0; i < totalList - 1; i++) {
-  const list = document.createElement("li");
+  console.log(count, rows);
+  const dataLength = rows.length;
+  // const dataTotal = list.count;
 
-  const div1 = document.createElement("div");
-  const div2 = document.createElement("div");
-  const div3 = document.createElement("div");
-  const div4 = document.createElement("div");
-  const div5 = document.createElement("div");
+  // console.log(dataLength);
+  const listUl = document.querySelector(".list_ul");
 
-  div1.classList.add("no-w");
-  div1.innerHTML = "123";
-  div2.classList.add("title-w");
-  div2.innerHTML = `나는요 너는요 우리는 ${i}요`;
-  div3.classList.add("user-w");
-  div3.innerHTML = "자카포카";
-  div4.classList.add("date-w");
-  div4.innerHTML = "2024-02-14";
-  div5.classList.add("view-w");
-  div5.innerHTML = "1024";
+  for (let i = 0; i < dataLength; i++) {
+    const list = document.createElement("li");
+    const div1 = document.createElement("div");
+    const div2 = document.createElement("div");
+    const div3 = document.createElement("div");
+    const div4 = document.createElement("div");
+    const div5 = document.createElement("div");
 
-  list.append(div1, div2, div3, div4, div5);
+    div1.classList.add("no-w");
+    div1.innerHTML = `${rows[i].id}`;
+    div2.classList.add("title-w");
+    div2.innerHTML = `${rows[i].title}`;
+    div3.classList.add("user-w");
+    div3.innerHTML = `${rows[i].user}`;
+    div4.classList.add("date-w");
+    div4.innerHTML = `${rows[i].date}`;
+    div5.classList.add("view-w");
+    div5.innerHTML = `${rows[i].id}`;
+    list.append(div1, div2, div3, div4, div5);
+    listUl.append(list);
+  }
 
-  listUl.append(list);
+  // 페이지 넘버 생성
+  // const page_ol = document.querySelector(".page > ol");
+
+  // for (let i = 0; i < dataTotal; i++) {
+  //   const page_li = document.createElement("li");
+  //   const page_a = document.createElement("a");
+
+  //   page_a.innerHTML = `${i + 1}`;
+  //   page_a.setAttribute("href", `http://localhost:3000/api/boards?=${i + 1}`);
+  //   page_li.append(page_a);
+  //   page_ol.append(page_li);
+  // }
+
+  // console.log(dataArray);
+  // for (let i = 0; i < dataArray; i++) {
+  //   const element = array[i];
+  // }
 }
 
-// 페이지 넘버 생성
-const page_ol = document.querySelector(".page > ol");
+getData();
 
-for (let i = 0; i < totalPage - 1; i++) {
-  const page_num = document.createElement("li");
+// console.log("----------");
 
-  page_num.innerHTML = `${i + 1}`;
+// for (let i = 0; i < totalList - 1; i++) {
 
-  page_ol.append(page_num);
-}
-// 페이지 array
-const pageNode = document.querySelectorAll(".page > ol > li");
-const pageArray = Array.from(pageNode);
+// }
 
-// 게시글 리스트
-const listNode = document.querySelectorAll(".list_ul > li");
-const listArray = Array.from(listNode);
-// listArray.slice(5, 100);
+// // 페이지 넘버 생성
+// const page_ol = document.querySelector(".page > ol");
 
-function init() {
-  for (let i = 0; i < totalList - 1; i++) {
-    listNode[i].style.display = "none";
-  }
+// for (let i = 0; i < totalPage - 1; i++) {
+//   const page_num = document.createElement("li");
 
-  for (let i = 0; i < viewList - 1; i++) {
-    listNode[i].style.display = "block";
-  }
+//   page_num.innerHTML = `${i + 1}`;
 
-  // 페이지
-  for (let i = 0; i < totalPage - 1; i++) {
-    pageNode[i].style.display = "none";
-  }
+//   page_ol.append(page_num);
+// }
+// // 페이지 array
+// const pageNode = document.querySelectorAll(".page > ol > li");
+// const pageArray = Array.from(pageNode);
 
-  for (let i = 0; i < viewPage; i++) {
-    pageNode[i].style.display = "block";
-  }
-}
+// // 게시글 리스트
+// const listNode = document.querySelectorAll(".list_ul > li");
+// const listArray = Array.from(listNode);
+// // listArray.slice(5, 100);
 
-init();
-// console.log(listArray);
+// function init() {
+//   for (let i = 0; i < totalList - 1; i++) {
+//     listNode[i].style.display = "none";
+//   }
+
+//   for (let i = 0; i < viewList - 1; i++) {
+//     listNode[i].style.display = "flex";
+//   }
+
+//   // 페이지
+//   for (let i = 0; i < totalPage - 1; i++) {
+//     pageNode[i].style.display = "none";
+//   }
+
+//   for (let i = 0; i < viewPage; i++) {
+//     pageNode[i].style.display = "flex";
+//   }
+// }
+
+// init();
+
+// // console.log(listArray)
