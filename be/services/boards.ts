@@ -29,6 +29,8 @@ export const list = async (nowquery: QueryString.ParsedQs) => {
       order: [["id", "desc"]],
     });
 
+    list.count = Math.ceil(list.count / 8);
+
     return list;
   } catch (err: any) {
     throw Error(err);
