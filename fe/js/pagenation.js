@@ -19,16 +19,29 @@ async function getData() {
     const div4 = document.createElement("div");
     const div5 = document.createElement("div");
 
+    const aTag = document.createElement("a");
+    aTag.setAttribute(
+      "href",
+      `http://127.0.0.1:5500/fe/page/detail.html?page=${rows[i].id}`
+    );
+
     div1.classList.add("no-w");
     div1.innerHTML = `${rows[i].id}`;
     div2.classList.add("title-w");
-    div2.innerHTML = `${rows[i].title}`;
+    aTag.innerHTML = `${rows[i].title}`;
+    aTag.style.display = "block";
+    aTag.style.width = "100%";
+    aTag.style.padding = "1rem 0";
+
     div3.classList.add("user-w");
     div3.innerHTML = `${rows[i].user}`;
     div4.classList.add("date-w");
     div4.innerHTML = `${rows[i].date}`;
     div5.classList.add("view-w");
-    div5.innerHTML = `${rows[i].id}`;
+    div5.innerHTML = `${rows[i].view}`;
+
+    div2.append(aTag);
+
     list.append(div1, div2, div3, div4, div5);
     listUl.append(list);
   }
