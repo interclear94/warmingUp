@@ -5,9 +5,13 @@ import cors from "cors";
 import { sequelize } from "./model";
 import errorHandler from "./middleware/error";
 
+import dotenv, { configDotenv } from "dotenv";
 const app: Express = express();
 
-sequelize.sync({ force: false });
+dotenv.config();
+// configDotenv();
+
+sequelize.sync({ force: true });
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
@@ -21,6 +25,6 @@ app.use(
 app.use("/api", router);
 app.use(errorHandler);
 
-app.listen(3000, () => {
+app.listen(3000, async () => {
   console.log("hello");
 });

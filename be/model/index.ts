@@ -1,10 +1,10 @@
-import { Sequelize, Options } from "sequelize";
-import mysqlConfig from "../config/config.json";
-import Board from "./board";
+import { Sequelize } from "sequelize-typescript";
+import db_config from "../config/config";
 
-const config: Options = mysqlConfig.development as Options;
-
-export const sequelize: Sequelize = new Sequelize(config);
-Board.initialize(sequelize);
-
-export { Board };
+export const sequelize: Sequelize = new Sequelize({
+  ...db_config,
+  models: [__dirname + "/*.model.ts"],
+  modelMatch: (filename, member) => {
+    return filename.substring(0, filename.indexOf("model")) === member;
+  },
+});
