@@ -36,7 +36,10 @@ async function getData() {
     div3.classList.add("user-w");
     div3.innerHTML = `${rows[i].user}`;
     div4.classList.add("date-w");
-    div4.innerHTML = `${rows[i].date}`;
+
+    const date = rows[i].createdAt;
+    const dateStr = date.substr(0, 10);
+    div4.innerHTML = `${dateStr}`;
     div5.classList.add("view-w");
     div5.innerHTML = `${rows[i].view}`;
 

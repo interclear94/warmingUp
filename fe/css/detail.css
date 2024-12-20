@@ -112,6 +112,14 @@
   /* z-index: 5; */
 }
 
+.modal-popup2 {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+}
+
 /* .inactive {
   display: block;
 } */
@@ -158,12 +166,11 @@
   align-items: center;
   width: 60px;
   height: 40px;
-  background: pink;
   border-radius: 4px;
   cursor: pointer;
 }
 
-#confirmBtn {
+.confirmBtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,11 +184,11 @@
   /* transition: all 0.3s linear; */
 }
 
-#confirmBtn:hover {
+.confirmBtn:hover {
   background: #755cc6;
 }
 
-#cancelBtn {
+.cancelBtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,6 +202,6 @@
   cursor: pointer;
 }
 
-#cancelBtn:hover {
+.cancelBtn:hover {
   background-color: #858585;
 }
