@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { Board } from "../model";
 import QueryString from "qs";
 import { Op } from "sequelize";
+import Board from "../model/board.model";
+import db_config from "../config/config";
 
 interface Search {
   title?: { [Op.like]: string };
@@ -87,13 +87,10 @@ export const update = async (body: any, nowparams: number) => {
     await nowboard.update({
       title: body.title,
       content: body.content,
-      user: body.user,
-      pw: body.pw,
     });
 
     return nowboard.id;
   } catch (err: any) {
-    // res.status(400).json({ check: "fail" });
     throw new Error("fail");
   }
 };
